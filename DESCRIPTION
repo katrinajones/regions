@@ -1,0 +1,21 @@
+Package: regions
+Type: Package
+Title: Analysis of Regions in Serially-homologous Structures
+Version: 1.1
+Date: 2016-07-28
+Authors@R: person("Katrina", "Jones", email = "katrinajones@fas.harvard.edu", role = c("aut", "cre"))
+Description: Package for estimating morphological regions without a-priori
+    assumptions of region number. Regions are modelled as segmented regressions, and
+    best fit model selected based on corrected likelihood values. An expansion on
+    the method of Head and Polly (2014), which incorporates multiple data types and
+    missing data using distance-based ordination.
+License: GPL-3
+LazyData: TRUE
+Imports: cluster, MASS, plotrix, colorspace
+Depends: R(>= 3.1.2), ggplot2,stats, graphics
+RoxygenNote: 6.0.1
+Suggests: knitr, rmarkdown, testthat
+VignetteBuilder: knitr
+Packaged: 2016-08-03 20:30:34 UTC; Katrina
+Author: Katrina Jones [aut, cre]
+Maintainer: Katrina Jones <katrinajones@fas.harvard.edu>

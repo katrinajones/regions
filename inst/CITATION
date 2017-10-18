@@ -1,0 +1,16 @@
+citHeader("To cite regions in publications use:")
+
+citEntry(entry = "Article",
+         title        = "Info to follow",
+         author       = personList(as.person("Katrina Jones"),
+                                   as.person("x")),
+         journal      = "Journal of x",
+         year         = "x",
+         volume       = "x",
+         number       = "x",
+         pages        = "1--x",
+         url          = "x",
+
+         textVersion  =
+           paste(x)
+)
