@@ -57,6 +57,7 @@ AICcalc<-function(RSS, nPC, nvert, noregions){
   n=nPC*nvert #No of variables used
   var=RSS/n #Variance calculated ML way
   k=(2*noregions*nPC)+(noregions-1) #Based on slope, int and var estimates for each regression. Breakpoints not included as they are given.
+  if(n<(k+2)) stop('ratio of variables to parameters too small. Reduce number of regions or increase variables')
   AIC=n*log(var)+(2*k) #+ n + n * log(2 * pi) #some cacls eg. r's AIC/AICc use this extra bit, shouldnt make a difference
   corr=(2*k*(k+1))/(n-k-1) #Correct for number of parameters and small sample
   AICc=AIC+corr #calculate AICc
