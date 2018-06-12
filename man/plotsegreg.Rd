@@ -4,7 +4,7 @@
 \alias{plotsegreg}
 \title{Plot best segmented regression model}
 \usage{
-plotsegreg(Xvar, pcono, data, regiondata)
+plotsegreg(Xvar, pcono, data, modelsupport)
 }
 \arguments{
 \item{Xvar}{Positional vector such as vertebral count.}
@@ -13,7 +13,7 @@ plotsegreg(Xvar, pcono, data, regiondata)
 
 \item{data}{PCO scores.}
 
-\item{regiondata}{Model_support object from \code{model_support}.}
+\item{modelsupport}{Model_support object from \code{model_support}.}
 }
 \description{
 Plots the segmented regression for the top model on PCO1.

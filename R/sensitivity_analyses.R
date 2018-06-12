@@ -88,7 +88,7 @@ sens_anal<-function(Xvar, data,noregions, nopcos, missing, type, reps, fillmiss=
     simXvar<-sim_data$Xvar
     nvert<-length(simXvar)
     #run PCO and regionalization analysis
-    simdata<-scale(simdata)#add a normalization step for bootstrapping so the variances are the same
+    #simdata<-scale(simdata)#add a normalization step for bootstrapping so the variances are the same
     pco.gower<-svdPCO(simdata, "gower")
 
     if(nopcos=="boot"){
@@ -97,7 +97,7 @@ sens_anal<-function(Xvar, data,noregions, nopcos, missing, type, reps, fillmiss=
     }  else if(nopcos=="varcut"){
     nopcos2<-length(which(pco.gower$eigen.val/sum(pco.gower$eigen.val)>0.05))#more than 5% of variance
     } else if(nopcos=="max"){
-      PCOscores<-pco.gower$scores[,1:ncol(pco.gower$scores)]#calculate region models to estimate pco.max
+      PCOscores<-pco.gower$scores[,1:5]#calculate region models to estimate pco.max
       regiondata<-compileregions(simXvar,PCOscores,noregions)
       nopcos2<-PCOmax(regiondata, noregions, nvert)$pco.max
     }   else if (nopcos=="all"){

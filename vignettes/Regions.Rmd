@@ -138,7 +138,7 @@ nopcos
 See relationship between PCO's and regionalization score below. Black line is the cumulative variance on each axis. Red points indicate the regionalization score when PCO's are added cumulatively. Black points indicate the regionalization score resulting from individual PCO's.
 
 ```{r, fig.cap="Relationship of PCOs to regionalization", fig.height=5, fig.width=5}
-plot.pco.reg(eigenvals=pco.gower$eigen.val,nvert, namelabel="Alligator", regiondata, noregions)
+plotpcoreg(eigenvals=pco.gower$eigen.val,nvert, namelabel="Alligator", regiondata, noregions)
 ```
 
 ###D. Select best models
@@ -185,7 +185,7 @@ pander::pandoc.table(support$Model_support)
 Examine the fit of your model using `plotsegreg`
 
 ```{r, fig.cap="Segmented regression model", fig.height=5, fig.width=6}
-plotsegreg(Xvar,pcono=1, data=pco.gower$scores, regiondata=support$Model_support)
+plotsegreg(Xvar,pcono=1, data=pco.gower$scores, modelsupport=support$Model_support)
 ```
 
 Plot the region breaks using `regionmodel`

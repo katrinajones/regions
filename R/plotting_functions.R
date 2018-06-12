@@ -25,13 +25,20 @@ axesplot <- function(data, x, y, Xvar) {
 #' @param name Specimen name for graph
 #' @param Xvar Positional variable such as vertebral count.
 #' @param regiondata Model_support object from \code{model_support}.
+#' @param plot plot the data?
+#' @param bestmodel option to input just the best model
+#' @param first option to input the position of the first vertebral sampled (default is 3)
 #'
 #' @import ggplot2
 #' @export
 
-regionmodel <- function(name, Xvar, regiondata) {
+regionmodel <- function(name, Xvar, regiondata=NULL, plot.reg=TRUE, bestmodel=NULL, first=3) {
 
+  if(is.null(bestmodel)){
     bestmodel <- as.matrix(regiondata[1, 1:6])  #bestmodel is first row from analysis
+  }else{
+    bestmodel<-bestmodel
+  }
     firstvert <- Xvar[1]
     lastvert <- Xvar[length(Xvar)]
     break1 <- which(Xvar == bestmodel[2])  #set the breakpoints
@@ -78,7 +85,7 @@ regionmodel <- function(name, Xvar, regiondata) {
         colorlab <- c("white", "red", "darkorange", "yellow", "green","aquamarine", "blue", "black")
     }
 
-    breakpoints[3:lastvert] <- replace(breakpoints[3:lastvert], which(breakpoints[3:lastvert] ==
+    breakpoints[first:lastvert] <- replace(breakpoints[first:lastvert], which(breakpoints[first:lastvert] ==
         0), 7)  #make option for missing data
     breakpoints <- as.factor(breakpoints)
     x <- factor(1)
@@ -92,8 +99,9 @@ regionmodel <- function(name, Xvar, regiondata) {
     plot.data <- cbind(plot.data, xmin, xmax, ymin, ymax)
     title <- name
 
+    if(isTRUE(plot.reg)){
 
-    ggplot2::ggplot(plot.data, aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax)) + geom_rect(colour = "black",
+    regionplot<-ggplot2::ggplot(plot.data, aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax)) + geom_rect(colour = "black",
         alpha = 0.5, aes(fill = breakpoints)) + scale_fill_manual(values = colorlab, guide = FALSE) +
       geom_text(aes(x = (xmin + xmax)/2, y = (ymin + ymax)/2, label = xmax)) + theme(axis.text.y = element_blank(),
         axis.text.x = element_blank(), axis.ticks.x = element_blank(), axis.ticks.y = element_blank(),
@@ -101,6 +109,14 @@ regionmodel <- function(name, Xvar, regiondata) {
         panel.grid.minor.y = element_blank(), panel.background = element_rect(fill = "white")) +
        ylab("") + xlab("")+ ggtitle(title) +
       coord_fixed(ratio = 5)
+
+    return(regionplot)
+
+    }
+    if(!isTRUE(plot.reg)){
+      return(plot.data$breakpoints)
+    }
+
 }
 
 #' Plot best segmented regression model
@@ -110,12 +126,12 @@ regionmodel <- function(name, Xvar, regiondata) {
 #' @param Xvar Positional vector such as vertebral count.
 #' @param data PCO scores.
 #' @param pcono Which PC to plot
-#' @param regiondata Model_support object from \code{model_support}.
+#' @param modelsupport Model_support object from \code{model_support}.
 #' @export
 
-plotsegreg <- function(Xvar, pcono, data, regiondata) {
+plotsegreg <- function(Xvar, pcono, data, modelsupport) {
 
-  bestmodel <- as.matrix(regiondata[1, 1:6])  #bestmodel is first row from analysis
+  bestmodel <- as.matrix(modelsupport[1, 1:6])  #bestmodel is first row from analysis
   firstvert <- Xvar[1]
   lastvert <- Xvar[length(Xvar)]
   break1 <- which(Xvar == bestmodel[2])  #set the breakpoints
@@ -228,11 +244,11 @@ plotvar<-function(yvar, labels, header){
 #' @param noregions Maximum number of regions
 #'
 #'
-#' @export plot.pco.reg
+#' @export
 #'
 #'
 #'
-plot.pco.reg<-function(eigenvals,nvert, namelabel, regiondata, noregions){
+plotpcoreg<-function(eigenvals,nvert, namelabel, regiondata, noregions){
 
   nvar<-ncol(regiondata[,which(colnames(regiondata)=="var 1"|colnames(regiondata)=="var.1"):ncol(regiondata)])
   #Make pco distribution plots
@@ -300,21 +316,27 @@ pco.load<-function(data, PCOscore){
 #'
 #' Relative probability of break and each position based on RSS for a given number of regions
 #'
+#' Also calculates the standard deviation of each breakpoint in the top 5% of models based on RSS
+#' If there are fewer then five models in the top 5%, the top five are used.
+#'
 #' @param regiondata region data
 #' @param noregions number of regions for which to generate heat score
 #' @param nopcos No of PCOs
 #' @param Xvar Positional variable
 #'
-#' @return heatscore
+#' @return heatscore- probability of breaks at a given poistion
+#' @return stdev - standard deviation of each breakpoint
 #' @export
 #'
-#' @examples
 regionheat<-function(regiondata, noregions,nopcos, Xvar){
 
   #Calculate RSS
   subdata<-regiondata[which(regiondata[,1]==noregions),]#select models with correct no of regions
   pco.begin<-which(colnames(subdata)=="var.1"|colnames(subdata)=="var 1")#find the RSS values
+  if(nopcos==1){sumRSS=subdata[,pco.begin:(pco.begin+(nopcos-1))]
+  }else{
   sumRSS <- rowSums(subdata[,pco.begin:(pco.begin+(nopcos-1))]) #calculate total RSS
+  }
   subdata<-cbind(subdata, sumRSS)
   subdata<-as.data.frame(subdata)
 
@@ -334,6 +356,25 @@ positions<-matrix(data=NA, nrow=(length(Xvar)-3), ncol=2)
     positions[i-1,1]<-vert
     positions[i-1,2]<-vertscore
   }
-return(heatscore=positions)
+
+###Calculate error associated with each break
+subdata<-subdata[order(subdata$deltaRSS),]#sort by RSS
+cutoff<-0.05*(range(subdata$deltaRSS)[2])#based on RSS, doesnt work for few regions
+best<-subdata[which(subdata$deltaRSS<cutoff),]
+if(nrow(best<5)){
+  best<-subdata[1:5,]#minimum possible is five
+}
+
+sd1<-sd(best$breakpoint1)#Standard deviation of breakpoints
+sd2<-sd(best$breakpoint2)
+sd3<-sd(best$breakpoint3)
+sd4<-sd(best$breakpoint4)
+sd5<-sd(best$breakpoint5)
+
+stdev<-list(b1=sd1, b2=sd2, b3=sd3, b4=sd4, b5=sd5)
+stdev<-stdev[1:(noregions-1)]#remove empty
+
+return(list(heatscore=positions,stdev=stdev))
 
 }
+

@@ -32,6 +32,8 @@ svdPCO <- function(x, metric) {
     step4 <- svd(step3)
     step5 <- step4$v
 
+    #step6<-scale(x%*%step5, center=T, scale=F)
+
     # Scale by root eigenval
     for (i in 1:ncol(step5)) {
         step5[, i] <- step5[, i] * sqrt(step4$d[i])
@@ -69,6 +71,7 @@ PCOcutoff <- function(data, nreps, metric) {
 
     pcotrue <- svdPCO(data, metric)
     eigen.true <- pcotrue$eigen.val  #calculate 'true' eigenvalues
+    eigen.true <- prop.table(eigen.true) #calculate as percentage variance
 
     eigen.boot <- NULL
     for (i in 1:nreps) {
@@ -83,7 +86,8 @@ PCOcutoff <- function(data, nreps, metric) {
             i - 1
         } else {
             pco <- svdPCO(randdata, metric)  #calculate bootstrapped eigenvalues
-            eigen.boot <- cbind(eigen.boot, pco$eigen.val)
+            eigen.booti<-prop.table(pco$eigen.val) #calculate as percentage variance
+            eigen.boot <- cbind(eigen.boot, eigen.booti)
         }
     }
     eigen.mean <- rowMeans(eigen.boot)  #calculate mean and SD of bootstrapped values
@@ -105,13 +109,15 @@ PCOcutoff <- function(data, nreps, metric) {
 #'
 #' @param eigen.true Vector of actual eigenvectors.
 #' @param eigen.boot Matrix of bootstrapped eigenvectors.
+#'
+#' @importFrom graphics plot lines
 #' @export
 
 eigenplot <- function(eigen.true, eigen.boot) {
 
-    plot(c(1:length(eigen.true)), eigen.true, main = "Eigenvalue cutoff",
+    graphics::plot(c(1:length(eigen.true)), eigen.true, main = "Eigenvalue cutoff",
         xlab = "PCO axis", ylab = "eigenvalue")
-    lines(c(1:length(eigen.true)), eigen.true)
+    graphics::lines(c(1:length(eigen.true)), eigen.true)
     boxplot(t(eigen.boot), xaxt = "n", add = T, outline = F)
 
 }
@@ -123,15 +129,18 @@ eigenplot <- function(eigen.true, eigen.boot) {
 #' @param regiondata Object returned from \code{compileregions}
 #' @param noregions Maximum number of regions
 #' @param nvert Number of vertebrae
+#' @param nvar No of variables/pcos to evaluate. Default is all PCOs.
 #'
 #' @return pco.max No of PCOs producing the largest regionscore
 #' @return pco.dist Region score for each cumulative addition of PCOs
 #' @export
 #'
 #'
-PCOmax<-function(regiondata, noregions, nvert){
+PCOmax<-function(regiondata, noregions, nvert, nvar=NULL){
 
+  if(is.null(nvar)){
   nvar<-ncol(regiondata[,which(colnames(regiondata)=="var 1"|colnames(regiondata)=="var.1"):ncol(regiondata)])
+  }
   pco.no.test<-data.frame(matrix(data=NA,nrow=nvar,ncol=2, dimnames=list(c(1:nvar),c("pco", "cum"))))
 
   for (i in 1:nvar){

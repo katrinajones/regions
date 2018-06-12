@@ -4,7 +4,7 @@
 \alias{PCOmax}
 \title{Find the number of PCOs which yeilds the Maximum regionscore}
 \usage{
-PCOmax(regiondata, noregions, nvert)
+PCOmax(regiondata, noregions, nvert, nvar = NULL)
 }
 \arguments{
 \item{regiondata}{Object returned from \code{compileregions}}
@@ -12,6 +12,8 @@ PCOmax(regiondata, noregions, nvert)
 \item{noregions}{Maximum number of regions}
 
 \item{nvert}{Number of vertebrae}
+
+\item{nvar}{No of variables/pcos to evaluate. Default is all PCOs.}
 }
 \value{
 pco.max No of PCOs producing the largest regionscore

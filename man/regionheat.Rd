@@ -16,8 +16,14 @@ regionheat(regiondata, noregions, nopcos, Xvar)
 \item{Xvar}{Positional variable}
 }
 \value{
-heatscore
+heatscore- probability of breaks at a given poistion
+
+stdev - standard deviation of each breakpoint
 }
 \description{
 Relative probability of break and each position based on RSS for a given number of regions
+}
+\details{
+Also calculates the standard deviation of each breakpoint in the top 5% of models based on RSS
+If there are fewer then five models in the top 5%, the top five are used.
 }
