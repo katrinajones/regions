@@ -1,4 +1,4 @@
-# Regions
+# regions
 Find regions in serially-homologous structures
 
 Package implementing segmented regression approach following Head and Polly (2014)
@@ -9,4 +9,4 @@ For more information see vignette Regions.rmd
 Citation: XXX
 
 Install using:
-devtools::install_github("katrinajones/Regions")
+devtools::install_github("katrinajones/regions")
