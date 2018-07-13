@@ -26,7 +26,7 @@ modelselect<-function(regiondata, noregions, nopcos, startpco=1){
   regiondata2<-as.data.frame(regiondata2)
   models<-numeric()
   for (i in 1:noregions){
-    allmodels<-subset(regiondata2, regions==i)#select only models with correct region no
+    allmodels<-subset(regiondata2, regiondata2$regions==i)#select only models with correct region no
     best<-allmodels[which(allmodels$sumRSS==min(allmodels$sumRSS)),]#select the lowest RSS
     best<-best[1,c(1:6,ncol(best))]#select columns
     models<-rbind(models, best)#fill in model table
@@ -103,7 +103,7 @@ return(list(Model_support=AIC_models,Region_score=Regions_score))
 
 #' Run regionalization analysis
 #'
-#' Runs whole regionalization analysis, inlcuding running the models,
+#' Wrapper for whole regionalization analysis, inlcuding running the models,
 #' selecting the models and calculating the model support
 #'
 #' @param Xvar Vector, x variable
@@ -141,8 +141,8 @@ region_anal<-function(Xvar, scores, noregions, nopcos){
 #' @return df Total degrees of freedom
 #' @return SSres Residual sums of squares
 #' @return dfe Error degrees of freedom
-#' @export
 #'
+#'@importFrom stats anova
 #'
 regionrsq<-function(Xvar, data, pcono, modelsupport){
 
@@ -211,7 +211,7 @@ regionrsq<-function(Xvar, data, pcono, modelsupport){
 
 #' Calculate multivariate adjusted r squared
 #'
-#' Calculate rsqaured based on sums of squares from accross multiple PCOs.
+#' Calculate rsqaured based on sums of squares from across multiple PCOs.
 #'
 #' Sum up sums of squares and degrees of freedom from separate PCO fits to estimate overall fit of data
 #'

@@ -19,7 +19,7 @@ rsq multivariate uncorrected r-squared
 adjrsq multivariate adjusted r-squared
 }
 \description{
-Calculate rsqaured based on sums of squares from accross multiple PCOs.
+Calculate rsqaured based on sums of squares from across multiple PCOs.
 }
 \details{
 Sum up sums of squares and degrees of freedom from separate PCO fits to estimate overall fit of data

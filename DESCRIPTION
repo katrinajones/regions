@@ -1,8 +1,8 @@
 Package: regions
 Type: Package
 Title: Analysis of Regions in Serially-homologous Structures
-Version: 1.1
-Date: 2016-07-28
+Version: 1.2
+Date: 2018-07-13
 Authors@R: person("Katrina", "Jones", email = "katrinajones@fas.harvard.edu", role = c("aut", "cre"))
 Description: Package for estimating morphological regions without a-priori
     assumptions of region number. Regions are modelled as segmented regressions, and
@@ -11,7 +11,7 @@ Description: Package for estimating morphological regions without a-priori
     missing data using distance-based ordination.
 License: GPL-3
 LazyData: TRUE
-Imports: cluster, MASS, plotrix, colorspace
+Imports: cluster, MASS, plotrix, colorspace, pander
 Depends: R(>= 3.1.2), ggplot2,stats, graphics
 RoxygenNote: 6.0.1
 Suggests: knitr, rmarkdown, testthat

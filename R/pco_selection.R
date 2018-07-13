@@ -91,7 +91,7 @@ PCOcutoff <- function(data, nreps, metric) {
         }
     }
     eigen.mean <- rowMeans(eigen.boot)  #calculate mean and SD of bootstrapped values
-    eigen.sd <- apply(eigen.boot, 1, sd)
+    eigen.sd <- apply(eigen.boot, 1, stats::sd)
     diff <- eigen.true - eigen.mean  #figure out which PCOs have greater eigenvalues for the 'true' dataset
     diff[diff < 0] <- 0
     sigpco <- length(split(diff, cumsum(diff == 0))$"0")  #split the dataset at the zeros, and calculate number of pcos in the first string
@@ -110,14 +110,14 @@ PCOcutoff <- function(data, nreps, metric) {
 #' @param eigen.true Vector of actual eigenvectors.
 #' @param eigen.boot Matrix of bootstrapped eigenvectors.
 #'
-#' @importFrom graphics plot lines
+#' @importFrom graphics plot lines boxplot
 #' @export
 
 eigenplot <- function(eigen.true, eigen.boot) {
 
-    graphics::plot(c(1:length(eigen.true)), eigen.true, main = "Eigenvalue cutoff",
+    plot(c(1:length(eigen.true)), eigen.true, main = "Eigenvalue cutoff",
         xlab = "PCO axis", ylab = "eigenvalue")
-    graphics::lines(c(1:length(eigen.true)), eigen.true)
+    lines(c(1:length(eigen.true)), eigen.true)
     boxplot(t(eigen.boot), xaxt = "n", add = T, outline = F)
 
 }

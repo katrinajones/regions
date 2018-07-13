@@ -14,11 +14,11 @@ regionmodel(name, Xvar, regiondata = NULL, plot.reg = TRUE,
 
 \item{regiondata}{Model_support object from \code{model_support}.}
 
+\item{plot.reg}{plot the data?}
+
 \item{bestmodel}{option to input just the best model}
 
 \item{first}{option to input the position of the first vertebral sampled (default is 3)}
-
-\item{plot}{plot the data?}
 }
 \description{
 Produces an illustration of serially-homologous structure divided by region, based on

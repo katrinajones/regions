@@ -1,3 +1,3 @@
 .onAttach <- function(libname, pkgname) {
-  packageStartupMessage("This is regions")
+  packageStartupMessage("regions - analysis of regions in serially-homologous structures")
 }

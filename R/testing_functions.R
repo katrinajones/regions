@@ -2,12 +2,14 @@
 #'
 #' Code for examining the residuals for a single region model with specified parameters
 #'
-#'Useful for examining the fit of a specified region model
+#' Useful for examining the fit of a specified region model
 #'
 #' @param Xvar Independent variable
 #' @param data Matrix of dependent variables
 #' @param noregions Number of regions
 #' @param breaks Vector of breakpoints
+#'
+#' @importFrom stats lm
 #'
 #' @return RSS.results residuals sums of squares for each PC and each region
 #' @export

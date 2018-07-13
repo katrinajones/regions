@@ -11,8 +11,8 @@
 axesplot <- function(data, x, y, Xvar) {
 
     plot(data[, x], data[, y], col = "white", xlab = "", ylab = "")
-    text(data[, x], data[, y], labels = Xvar)
-    title(main = "Principal coordinates analysis", xlab = paste("PCO", x), ylab = paste("PCO",
+    graphics::text(data[, x], data[, y], labels = Xvar)
+    graphics::title(main = "Principal coordinates analysis", xlab = paste("PCO", x), ylab = paste("PCO",
         y))
 
 }
@@ -25,7 +25,7 @@ axesplot <- function(data, x, y, Xvar) {
 #' @param name Specimen name for graph
 #' @param Xvar Positional variable such as vertebral count.
 #' @param regiondata Model_support object from \code{model_support}.
-#' @param plot plot the data?
+#' @param plot.reg plot the data?
 #' @param bestmodel option to input just the best model
 #' @param first option to input the position of the first vertebral sampled (default is 3)
 #'
@@ -127,6 +127,9 @@ regionmodel <- function(name, Xvar, regiondata=NULL, plot.reg=TRUE, bestmodel=NU
 #' @param data PCO scores.
 #' @param pcono Which PC to plot
 #' @param modelsupport Model_support object from \code{model_support}.
+#'
+#' @importFrom graphics abline
+#' @importFrom plotrix ablineclip
 #' @export
 
 plotsegreg <- function(Xvar, pcono, data, modelsupport) {
@@ -148,41 +151,41 @@ plotsegreg <- function(Xvar, pcono, data, modelsupport) {
         abline(lm(data[, pcono] ~ Xvar))
     }
     if (bestmodel[1] == 2) {
-      plotrix::ablineclip(lm(data[1:break1, pcono] ~ Xvar[1:break1]), x1 = Xvar[1], x2 = bestmodel[2])
-      plotrix::ablineclip(lm(data[(break1 + 1):nrow(data), pcono] ~ Xvar[(break1 + 1):nrow(data)]), x1 = bestmodel[2] +
+      ablineclip(lm(data[1:break1, pcono] ~ Xvar[1:break1]), x1 = Xvar[1], x2 = bestmodel[2])
+      ablineclip(lm(data[(break1 + 1):nrow(data), pcono] ~ Xvar[(break1 + 1):nrow(data)]), x1 = bestmodel[2] +
             1, x2 = Xvar[length(Xvar)])
       abline(v = bestmodel[2] + 0.5, col = "red", lty = 2)
     }
     if (bestmodel[1] == 3) {
-      plotrix::ablineclip(lm(data[1:break1, pcono] ~ Xvar[1:break1]), x1 = Xvar[1], x2 = bestmodel[2])
-      plotrix::ablineclip(lm(data[(break1 + 1):break2, pcono] ~ Xvar[(break1 + 1):break2]), x1 = bestmodel[2] +
+      ablineclip(lm(data[1:break1, pcono] ~ Xvar[1:break1]), x1 = Xvar[1], x2 = bestmodel[2])
+      ablineclip(lm(data[(break1 + 1):break2, pcono] ~ Xvar[(break1 + 1):break2]), x1 = bestmodel[2] +
             1, x2 = bestmodel[3])
-      plotrix::ablineclip(lm(data[(break2 + 1):nrow(data), pcono] ~ Xvar[(break2 + 1):nrow(data)]), x1 = bestmodel[3] +
+      ablineclip(lm(data[(break2 + 1):nrow(data), pcono] ~ Xvar[(break2 + 1):nrow(data)]), x1 = bestmodel[3] +
             1, x2 = Xvar[length(Xvar)])
         abline(v = bestmodel[2] + 0.5, col = "red", lty = 2)
         abline(v = bestmodel[3] + 0.5, col = "red", lty = 2)
     }
     if (bestmodel[1] == 4) {
-      plotrix::ablineclip(lm(data[1:break1, pcono] ~ Xvar[1:break1]), x1 = Xvar[1], x2 = bestmodel[2])
-      plotrix::ablineclip(lm(data[(break1 + 1):break2, pcono] ~ Xvar[(break1 + 1):break2]), x1 = bestmodel[2] +
+      ablineclip(lm(data[1:break1, pcono] ~ Xvar[1:break1]), x1 = Xvar[1], x2 = bestmodel[2])
+      ablineclip(lm(data[(break1 + 1):break2, pcono] ~ Xvar[(break1 + 1):break2]), x1 = bestmodel[2] +
             1, x2 = bestmodel[3])
-      plotrix::ablineclip(lm(data[(break2 + 1):break3,pcono] ~ Xvar[(break2 + 1):break3]), x1 = bestmodel[3] +
+      ablineclip(lm(data[(break2 + 1):break3,pcono] ~ Xvar[(break2 + 1):break3]), x1 = bestmodel[3] +
             1, x2 = bestmodel[4])
-      plotrix::ablineclip(lm(data[(break3 + 1):nrow(data), pcono] ~ Xvar[(break3 + 1):nrow(data)]), x1 = bestmodel[4] +
+      ablineclip(lm(data[(break3 + 1):nrow(data), pcono] ~ Xvar[(break3 + 1):nrow(data)]), x1 = bestmodel[4] +
             1, x2 = Xvar[length(Xvar)])
         abline(v = bestmodel[2] + 0.5, col = "red", lty = 2)
         abline(v = bestmodel[3] + 0.5, col = "red", lty = 2)
         abline(v = bestmodel[4] + 0.5, col = "red", lty = 2)
     }
     if (bestmodel[1] == 5) {
-      plotrix::ablineclip(lm(data[1:break1, pcono] ~ Xvar[1:break1]), x1 = Xvar[1], x2 = bestmodel[2])
-      plotrix::ablineclip(lm(data[(break1 + 1):break2, pcono] ~ Xvar[(break1 + 1):break2]), x1 = bestmodel[2] +
+      ablineclip(lm(data[1:break1, pcono] ~ Xvar[1:break1]), x1 = Xvar[1], x2 = bestmodel[2])
+      ablineclip(lm(data[(break1 + 1):break2, pcono] ~ Xvar[(break1 + 1):break2]), x1 = bestmodel[2] +
             1, x2 = bestmodel[3])
-      plotrix::ablineclip(lm(data[(break2 + 1):break3, pcono] ~ Xvar[(break2 + 1):break3]), x1 = bestmodel[3] +
+      ablineclip(lm(data[(break2 + 1):break3, pcono] ~ Xvar[(break2 + 1):break3]), x1 = bestmodel[3] +
             1, x2 = bestmodel[4])
-      plotrix::ablineclip(lm(data[(break3 + 1):break4, pcono] ~ Xvar[(break3 + 1):break4]), x1 = bestmodel[4] +
+      ablineclip(lm(data[(break3 + 1):break4, pcono] ~ Xvar[(break3 + 1):break4]), x1 = bestmodel[4] +
             1, x2 = bestmodel[5])
-      plotrix::ablineclip(lm(data[(break4 + 1):nrow(data), pcono] ~ Xvar[(break4 + 1):nrow(data)]), x1 = bestmodel[5] +
+      ablineclip(lm(data[(break4 + 1):nrow(data), pcono] ~ Xvar[(break4 + 1):nrow(data)]), x1 = bestmodel[5] +
             1, x2 = Xvar[length(Xvar)])
         abline(v = bestmodel[2] + 0.5, col = "red", lty = 2)
         abline(v = bestmodel[3] + 0.5, col = "red", lty = 2)
@@ -190,16 +193,16 @@ plotsegreg <- function(Xvar, pcono, data, modelsupport) {
         abline(v = bestmodel[5] + 0.5, col = "red", lty = 2)
     }
     if (bestmodel[1] == 6) {
-      plotrix::ablineclip(lm(data[1:break1, pcono] ~ Xvar[1:break1]), x1 = Xvar[1], x2 = bestmodel[2])
-      plotrix::ablineclip(lm(data[(break1 + 1):break2, pcono] ~ Xvar[(break1 + 1):break2]), x1 = bestmodel[2] +
+      ablineclip(lm(data[1:break1, pcono] ~ Xvar[1:break1]), x1 = Xvar[1], x2 = bestmodel[2])
+      ablineclip(lm(data[(break1 + 1):break2, pcono] ~ Xvar[(break1 + 1):break2]), x1 = bestmodel[2] +
             1, x2 = bestmodel[3])
-      plotrix::ablineclip(lm(data[(break2 + 1):break3, pcono] ~ Xvar[(break2 + 1):break3]), x1 = bestmodel[3] +
+      ablineclip(lm(data[(break2 + 1):break3, pcono] ~ Xvar[(break2 + 1):break3]), x1 = bestmodel[3] +
             1, x2 = bestmodel[4])
-      plotrix::ablineclip(lm(data[(break3 + 1):break4, pcono] ~ Xvar[(break3 + 1):break4]), x1 = bestmodel[4] +
+      ablineclip(lm(data[(break3 + 1):break4, pcono] ~ Xvar[(break3 + 1):break4]), x1 = bestmodel[4] +
             1, x2 = bestmodel[5])
-      plotrix::ablineclip(lm(data[(break4 + 1):break5, pcono] ~ Xvar[(break4 + 1):break5]), x1 = bestmodel[5] +
+      ablineclip(lm(data[(break4 + 1):break5, pcono] ~ Xvar[(break4 + 1):break5]), x1 = bestmodel[5] +
             1, x2 = bestmodel[6])
-      plotrix::ablineclip(lm(data[(break5 + 1):nrow(data),pcono] ~ Xvar[(break5 + 1):nrow(data)]), x1 = bestmodel[6] +
+      ablineclip(lm(data[(break5 + 1):nrow(data),pcono] ~ Xvar[(break5 + 1):nrow(data)]), x1 = bestmodel[6] +
             1, x2 = Xvar[length(Xvar)])
         abline(v = bestmodel[2] + 0.5, col = "red", lty = 2)
         abline(v = bestmodel[3] + 0.5, col = "red", lty = 2)
@@ -216,7 +219,7 @@ plotsegreg <- function(Xvar, pcono, data, modelsupport) {
 #' @param labels labels
 #' @param header header
 #'
-#'
+#' @importFrom graphics axis
 #' @export
 #'
 #'
@@ -243,7 +246,7 @@ plotvar<-function(yvar, labels, header){
 #' @param regiondata Segmented regression models for specimen from \code{compileregions}
 #' @param noregions Maximum number of regions
 #'
-#'
+#' @importFrom graphics points lines plot title
 #' @export
 #'
 #'
@@ -299,7 +302,7 @@ pco.load<-function(data, PCOscore){
   ###Figure out loadings using correlation
   vert.size<-apply(data,1,mean)
   data<-cbind(data, vert.size)
-  load.pco<-cor(data[,3:ncol(data)],PCOscore, use="pairwise.complete.obs")
+  load.pco<-stats::cor(data[,3:ncol(data)],PCOscore, use="pairwise.complete.obs")
   abs<-abs(load.pco)
   sign<-sign(load.pco[,1])
   load.pco<-cbind(load.pco,abs, sign)
@@ -326,7 +329,7 @@ pco.load<-function(data, PCOscore){
 #'
 #' @return heatscore- probability of breaks at a given poistion
 #' @return stdev - standard deviation of each breakpoint
-#' @export
+#' @importFrom stats sd
 #'
 regionheat<-function(regiondata, noregions,nopcos, Xvar){
 

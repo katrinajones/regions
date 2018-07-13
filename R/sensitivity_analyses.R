@@ -12,7 +12,7 @@
 #' @return data
 #' @return xvar
 #' @export
-#'
+#' @importFrom stats runif
 #'
 sim_missing<-function(data,missing,type, Xvar){
 
@@ -62,7 +62,7 @@ sim_missing<-function(data,missing,type, Xvar){
 #' @return regionscore
 #' @return AIC models
 #' @export
-#'
+#' @importFrom stats dist
 #'
 sens_anal<-function(Xvar, data,noregions, nopcos, missing, type, reps, fillmiss=TRUE){
   AIC_models<-NULL

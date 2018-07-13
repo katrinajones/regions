@@ -21,6 +21,6 @@ Model_support support for each best model
 Region_scores Weighted region scores
 }
 \description{
-Runs whole regionalization analysis, inlcuding running the models,
+Wrapper for whole regionalization analysis, inlcuding running the models,
 selecting the models and calculating the model support
 }
