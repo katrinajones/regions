@@ -189,7 +189,7 @@ To check the fit of the model, you can calculate the multivariate r-squared usin
 rsq<-multvarrsq(Xvar,as.matrix(PCOscores[,1:nopcos]), support$Model_support)
 ```
 
-###Plotting regionalization models
+####Plotting regionalization models
 
 Examine the fit of your model using `plotsegreg`
 
