@@ -49,6 +49,11 @@ regionmodel <- function(name, Xvar, regiondata=NULL, plot.reg=TRUE, bestmodel=NU
     breakpoints <- rep(0, lastvert)
 
     # convert breakpoints into regions
+    if (bestmodel[1] == 1) {
+      breakpoints[Xvar]<-1
+      colorlab <- c("white", "red", "black")
+    }
+
     if (bestmodel[1] == 2) {
         breakpoints[Xvar[1:break1]] <- 1
         breakpoints[Xvar[break1 + 1:length(Xvar)]] <- 2
