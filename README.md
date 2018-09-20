@@ -12,4 +12,4 @@ BY K. E. JONES, K. D. ANGIELCZYK, P. D. POLLY, J. J. HEAD, V. FERNANDEZ, J. K. L
 SCIENCE21 SEP 2018 : 1249-1252
 
 Install using:
-devtools::install_github("katrinajones/regions")
+devtools::install_github("katrinajones/regions", build_vignettes=T)
