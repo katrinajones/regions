@@ -14,8 +14,9 @@ LazyData: TRUE
 Imports: cluster, MASS, plotrix, colorspace, pander
 Depends: R(>= 3.1.2), ggplot2,stats, graphics
 RoxygenNote: 6.1.0
-Suggests: knitr, rmarkdown, testthat
+Suggests: knitr, rmarkdown, testthat, Matrix, nlme, survival
 VignetteBuilder: knitr
 Packaged: 2016-08-03 20:30:34 UTC; Katrina
 Author: Katrina Jones [aut, cre]
 Maintainer: Katrina Jones <katrinajones@fas.harvard.edu>
+Encoding: UTF-8
