@@ -95,13 +95,6 @@ pander::pandoc.table(regiondata[1:5,1:5])
 
 Most biological data contain significant noise due to measurement error or taphonomy. This noise tends to concentrate on lower PCOs. The AIC selection procedure implemented here assumes that all input variables (PCOs) contain information, and thus penalizes them equally. Therefore, using all the PCOs in the analysis can artificially reduce regionalization score, so it is good to minimize the number of input variables. `Regions` implements multiple options for reducing your dataset.
 
-See relationship between PCO inclusion and regionalization score below. Black line is the cumulative variance on each axis. Red points indicate the regionalization score when PCO's are added cumulatively. Black points indicate the regionalization score resulting from individual PCO's.
-
-```{r, fig.cap="Relationship of PCOs to regionalization", fig.height=5, fig.width=5}
-plotpcoreg(eigenvals=pco.gower$eigen.val,nvert, namelabel="Alligator", regiondata, noregions)
-```
-
-
 1. Select a number of PCOs - five PCOs is a common cutoff, see Head and Polly (2014).
 
 ```{r}
