@@ -13,7 +13,7 @@ License: GPL-3
 LazyData: TRUE
 Imports: cluster, MASS, plotrix, colorspace, pander
 Depends: R(>= 3.1.2), ggplot2,stats, graphics
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
 Suggests: knitr, rmarkdown, testthat
 VignetteBuilder: knitr
 Packaged: 2016-08-03 20:30:34 UTC; Katrina

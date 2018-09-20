@@ -4,7 +4,8 @@
 \alias{sens_anal}
 \title{Run Sensistivity analysis}
 \usage{
-sens_anal(Xvar, data, noregions, nopcos, missing, type, reps, fillmiss = TRUE)
+sens_anal(Xvar, data, noregions, nopcos, missing, type, reps,
+  fillmiss = TRUE)
 }
 \arguments{
 \item{Xvar}{Positional variable}

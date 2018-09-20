@@ -2,13 +2,11 @@
 title: "regions"
 author: "Katrina E Jones"
 date: "`r Sys.Date()`"
-output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{regions}
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+  \usepackage[utf8]{inputenc}
 ---
 
 ##About Regions
@@ -87,9 +85,9 @@ Now we can calculate segmented regression models for all possible combinations o
 You can calculate the segmented regression models using `compileregions`
 
 ```{r}
-noregions<-4 #Set the maximum number of regions which will be calculated
+noregions<-3 #Set the maximum number of regions which will be calculated
 regiondata<-compileregions(Xvar,PCOscores[,1:10],noregions)
-pander::pandoc.table(regiondata[1:5,1:10])
+pander::pandoc.table(regiondata[1:5,1:5])
 ```
 
 
