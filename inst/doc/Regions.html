@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Katrina E Jones" />
+
+<meta name="date" content="2018-09-20" />
+
+<title>regions</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">regions</h1>
+<h4 class="author"><em>Katrina E Jones</em></h4>
+<h4 class="date"><em>2018-09-20</em></h4>
+
+
+
+<div id="about-regions" class="section level2">
+<h2>About Regions</h2>
+<p>The Regions package encompasses a suite of functions which find regions in serially-homologous structures using segmented regression, based on the method of Head &amp; Polly (2014).</p>
+<p>Detecting regions in serially-homologous structures has traditionally been approached with clustering methods. The segmented regression approach implemented here better adresses the integration of serially-homologous biological structures (such as vertebrae), modelling them as morphological gradients along a continuosly varying series. This also constrains <code>regions</code> to group only units which are adjacent with one another, reflecting developmental processes i.e., vertebral patterning via colinear <em>Hox</em> expression.</p>
+<p>Maximum likelihood is used to select regionalization models, up to a maximum of six regions, and produce a regionalization score reflecting the degree of regionalization of each dataset. The best-fit region model is also output.</p>
+<p>The main steps are as follows: A. Data Ordination B. Calculate segmented regression models (slowest step) C. Reduce data D. Select best models for each hypotheses (number of regions) E. Compare hypotheses using AICc</p>
+</div>
+<div id="getting-started" class="section level2">
+<h2>Getting started</h2>
+<div id="preliminaries" class="section level3">
+<h3>Preliminaries</h3>
+<p>Regions code can be loaded using intall packages&gt;from archive, then selecting the bundled file. Here we will use example morphological data from an Alligator to demonstrate use of the package.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(regions)
+<span class="kw">data</span>(<span class="st">&quot;alligator&quot;</span>)</code></pre></div>
+<p>A typical dataset will contain one positional variable, in this case vertebral number, and multiple dependent variables. These will usually be continuous variables describing the morphology of the various serially homologous vertebrae. In this case it is linear and angular measures taken on vertebrae. Any type of data may be appropriate, though be careful to chose the appropriate distance metric for your data types (see below).</p>
+<table style="width:64%;">
+<colgroup>
+<col width="15%"></col>
+<col width="11%"></col>
+<col width="12%"></col>
+<col width="12%"></col>
+<col width="12%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Vertebra</th>
+<th align="center">CL</th>
+<th align="center">Chpost</th>
+<th align="center">Cwpost</th>
+<th align="center">Chant</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">22.38</td>
+<td align="center">15.15</td>
+<td align="center">18.7</td>
+<td align="center">14.21</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">22.1</td>
+<td align="center">15.82</td>
+<td align="center">18.23</td>
+<td align="center">15.4</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">22.29</td>
+<td align="center">16.39</td>
+<td align="center">18.66</td>
+<td align="center">16.32</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
+<td align="center">21.23</td>
+<td align="center">16.93</td>
+<td align="center">18.5</td>
+<td align="center">16.11</td>
+</tr>
+<tr class="odd">
+<td align="center">7</td>
+<td align="center">21.13</td>
+<td align="center">16.63</td>
+<td align="center">19.37</td>
+<td align="center">16.48</td>
+</tr>
+<tr class="even">
+<td align="center">8</td>
+<td align="center">20.57</td>
+<td align="center">17.07</td>
+<td align="center">19.61</td>
+<td align="center">16.18</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="preparing-the-data" class="section level3">
+<h3>Preparing the Data</h3>
+<p>A positional variable must be selected as the independent variable for the analysis.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Xvar&lt;-alligator[,<span class="dv">1</span>]
+nvert&lt;-<span class="kw">length</span>(Xvar)
+Xvar[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</code></pre></div>
+<pre><code>## [1] 3 4 5 6 7</code></pre>
+<p>If you have missing data you may wish to fill short strings by interpolating from neighboring elements, up to a maximum of two missing points. Long strings are left as NA.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data&lt;-alligator[,<span class="dv">2</span><span class="op">:</span><span class="kw">ncol</span>(alligator)] <span class="co">#rest are dependent variables</span>
+data&lt;-<span class="kw">Missingval</span>(data)<span class="co">#fill missing data</span></code></pre></div>
+<p>Next, it is recommended that you scale the data prior to analysis, to examine patterns as opposed to magnitudes. This also enables bootstrap selection of PCOs (below).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data&lt;-<span class="kw">scale</span>(data)</code></pre></div>
+</div>
+<div id="a.-data-ordination" class="section level3">
+<h3>A. Data ordination</h3>
+<p>To incorporate a wide variety of data types, and potential missing data, you can use a distance-based data ordination, though the analysis should work equally well on PCA where data are appropriate. Principal coordinates analysis (PCO) is used to create axes which maximize the variation. The implementation employed in <code>svdPCO</code> uses a distance matrix generated by <code>cluster::daisy</code>. It differs from other implementations of PCO (e.g., based on <code>CMDscale</code>) as it uses a singular value decomposition (i.e., <code>svd</code>) instead of the more generalized <code>eigen</code>, thereby avoiding negative eigenvalues.</p>
+<p>Three types of distance metric can be used: euclidean, manhatten, or gower. Euclidean should only be used where all variables are similar (e.g., linear measures on the same scale), and is most similar to a PCA. Gower is good for combining different types of continuous data (e.g., angles and linear). Missing data is allowed, as long as there is some overlap in represented variables. For more information see <code>?(daisy)</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pco.gower&lt;-<span class="kw">svdPCO</span>(data, <span class="st">&quot;gower&quot;</span>)<span class="co">#PCO using svd</span>
+PCOscores&lt;-pco.gower<span class="op">$</span>scores[,<span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(pco.gower<span class="op">$</span>scores)]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">axesplot</span>(PCOscores, <span class="dv">1</span>, <span class="dv">2</span>, Xvar)</code></pre></div>
+<div class="figure">
+<img src="data:image/png;base64,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" alt="Variation along the column" />
+<p class="caption">Variation along the column</p>
+</div>
+</div>
+<div id="b.-segmented-regression-models" class="section level3">
+<h3>B. Segmented Regression models</h3>
+<p>Now we can calculate segmented regression models for all possible combinations of regions on each PCO separately. This is the first step in calculating regionalization and may be very slow depending on the number of variables and regions being analyzed. You may wish to reduce the data first to speed this step up.</p>
+<p>You can calculate the segmented regression models using <code>compileregions</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">noregions&lt;-<span class="dv">3</span> <span class="co">#Set the maximum number of regions which will be calculated</span>
+regiondata&lt;-<span class="kw">compileregions</span>(Xvar,PCOscores[,<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>],noregions)
+pander<span class="op">::</span><span class="kw">pandoc.table</span>(regiondata[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>])</code></pre></div>
+<pre><code>## 
+## -----------------------------------------------------------------
+##  regions   breakpoint1   breakpoint2   breakpoint3   breakpoint4 
+## --------- ------------- ------------- ------------- -------------
+##     1           0             0             0             0      
+## 
+##     2           4             0             0             0      
+## 
+##     2           5             0             0             0      
+## 
+##     2           6             0             0             0      
+## 
+##     2           7             0             0             0      
+## -----------------------------------------------------------------</code></pre>
+</div>
+<div id="c.-data-reduction" class="section level3">
+<h3>C. Data reduction</h3>
+<p>Most biological data contain significant noise due to measurement error or taphonomy. This noise tends to concentrate on lower PCOs. The AIC selection procedure implemented here assumes that all input variables (PCOs) contain information, and thus penalizes them equally. Therefore, using all the PCOs in the analysis can artificially reduce regionalization score, so it is good to minimize the number of input variables. <code>Regions</code> implements multiple options for reducing your dataset.</p>
+<p>See relationship between PCO inclusion and regionalization score below. Black line is the cumulative variance on each axis. Red points indicate the regionalization score when PCO’s are added cumulatively. Black points indicate the regionalization score resulting from individual PCO’s.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotpcoreg</span>(<span class="dt">eigenvals=</span>pco.gower<span class="op">$</span>eigen.val,nvert, <span class="dt">namelabel=</span><span class="st">&quot;Alligator&quot;</span>, regiondata, noregions)</code></pre></div>
+<div class="figure">
+<img src="data:image/png;base64,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" alt="Relationship of PCOs to regionalization" />
+<p class="caption">Relationship of PCOs to regionalization</p>
+</div>
+<ol style="list-style-type: decimal">
+<li>Select a number of PCOs - five PCOs is a common cutoff, see Head and Polly (2014).</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nopcos&lt;-<span class="dv">5</span>
+nopcos</code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Bootstrapping - bootstrapping algorhithm which can help you select the number of PCO’s containing significant variation compared to random noise. The is particularly important as noise may be amplified in low variance measures by the scaling step of the PCO.</li>
+</ol>
+<p><code>PCOcutoff</code> randomizes the variables for each unit and estimates the mean eigenvalue distribution of this random data. One can select the PCO’s to include in the analysis as those with an eigenvalue (% variance explained) greater than the mean eigenvalue of the random data for that PCO. Note that variables must be scaled prior to analysis for this bootstrapping approach to be meaningful.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#bootstrapped with 100 itterations</span>
+pco.boot&lt;-<span class="kw">PCOcutoff</span>(data,<span class="dv">100</span>, <span class="st">&quot;gower&quot;</span>)
+nopcos&lt;-pco.boot<span class="op">$</span>sigpco<span class="co">#Select significant axes</span>
+nopcos</code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Plot the eigenvalues</span>
+<span class="kw">eigenplot</span>(pco.boot<span class="op">$</span>eigen.true, pco.boot<span class="op">$</span>eigen.boot)</code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Variance Cutoff - Select only the PCOs representing more than five percent of variance.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nopcos&lt;-<span class="kw">length</span>(<span class="kw">which</span>(pco.gower<span class="op">$</span>eigen.val<span class="op">/</span><span class="kw">sum</span>(pco.gower<span class="op">$</span>eigen.val)<span class="op">&gt;</span><span class="fl">0.05</span>))<span class="co">#more than 5% of variance</span>
+nopcos</code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Maximising regionscores - select the number of PCO’s which gives the maximum possible region score using <code>PCOmax</code>.</li>
+</ol>
+<p>If you are concerned that excluding PCOs may be masking regionalization signal, you can optimize the PCO selection to find the maximum number of regions.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nopcos&lt;-<span class="kw">PCOmax</span>(regiondata, noregions, nvert)<span class="op">$</span>pco.max
+nopcos</code></pre></div>
+<pre><code>## [1] 1</code></pre>
+</div>
+<div id="d.-select-best-models" class="section level3">
+<h3>D. Select best models</h3>
+<p>Now we can pick which segmented regression model fits the data best for each hypothesis (1 region, 2 region etc) by simply minimizing the residual sums of squares.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">models&lt;-<span class="kw">modelselect</span>(regiondata,noregions,nopcos)
+pander<span class="op">::</span><span class="kw">pandoc.table</span>(models)</code></pre></div>
+<pre><code>## 
+## --------------------------------------------------------------------------
+##  &amp;nbsp;   regions   breakpoint1   breakpoint2   breakpoint3   breakpoint4 
+## -------- --------- ------------- ------------- ------------- -------------
+##  **1**       1           0             0             0             0      
+## 
+##  **9**       2          11             0             0             0      
+## 
+##  **72**      3           7            12             0             0      
+## --------------------------------------------------------------------------
+## 
+## Table: Table continues below
+## 
+##  
+## ---------------------------------
+##  &amp;nbsp;   breakpoint5    sumRSS  
+## -------- ------------- ----------
+##  **1**         0         0.2213  
+## 
+##  **9**         0         0.0271  
+## 
+##  **72**        0        0.003684 
+## ---------------------------------</code></pre>
+</div>
+<div id="e.-compare-hypotheses-using-aicc" class="section level3">
+<h3>E. Compare hypotheses using AICc</h3>
+<p>Now we have 4 regionalization hypotheses which we can test using AICc.</p>
+<p>The adjusted log likelihood is calculated as</p>
+<p><span class="math display">\[n * log(RSS/n) + adj\]</span></p>
+<p>where n is <span class="math inline">\(No vertebrae*No PCO scores\)</span> and adj is the AIC adjustment</p>
+<p><span class="math display">\[adj= 2p + (2p(p+1))/(n-p-1)\]</span></p>
+<p>where p is the numer of parameters in the mode being fitted</p>
+<p><span class="math display">\[p = No PCOs*2*No regions + No regions -1\]</span></p>
+<p>As each region in each model has a slope and an intercept.</p>
+<p>This provides a relative measure of goodness-of-fit for each hypothesis. We can convert that into a continuous regionalization score by calculating Aikake weights from the log likelihood of each hypothesis:</p>
+<p><span class="math display">\[ Akw = Log L (n)/Total L \]</span></p>
+<p>Regionalization score is the weighted average of region number,scaled by Akaike weight.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">support&lt;-<span class="kw">model_support</span>(models,nvert, nopcos)
+pander<span class="op">::</span><span class="kw">pandoc.table</span>(support<span class="op">$</span>Model_support)</code></pre></div>
+<pre><code>## 
+## --------------------------------------------------------------------------
+##  &amp;nbsp;   regions   breakpoint1   breakpoint2   breakpoint3   breakpoint4 
+## -------- --------- ------------- ------------- ------------- -------------
+##  **72**      3           7            12             0             0      
+## 
+##  **9**       2          11             0             0             0      
+## 
+##  **1**       1           0             0             0             0      
+## --------------------------------------------------------------------------
+## 
+## Table: Table continues below
+## 
+##  
+## -----------------------------------------------------------------------------
+##  &amp;nbsp;   breakpoint5    sumRSS     AICc    deltaAIC   model_lik   Ak_weight 
+## -------- ------------- ---------- -------- ---------- ----------- -----------
+##  **72**        0        0.003684   -164.2      0           1           1     
+## 
+##  **9**         0         0.0271    -133.6    30.57      2.3e-07     2.3e-07  
+## 
+##  **1**         0         0.2213    -96.55    67.66     2.033e-15   2.033e-15 
+## -----------------------------------------------------------------------------</code></pre>
+<p>To check the fit of the model, you can calculate the multivariate r-squared using <code>multvarrsq</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rsq&lt;-<span class="kw">multvarrsq</span>(Xvar,<span class="kw">as.matrix</span>(PCOscores[,<span class="dv">1</span><span class="op">:</span>nopcos]), support<span class="op">$</span>Model_support)</code></pre></div>
+<div id="plotting-regionalization-models" class="section level4">
+<h4>Plotting regionalization models</h4>
+<p>Examine the fit of your model using <code>plotsegreg</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotsegreg</span>(Xvar,<span class="dt">pcono=</span><span class="dv">1</span>, <span class="dt">data=</span>pco.gower<span class="op">$</span>scores, <span class="dt">modelsupport=</span>support<span class="op">$</span>Model_support)</code></pre></div>
+<div class="figure">
+<img src="data:image/png;base64,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" alt="Segmented regression model" />
+<p class="caption">Segmented regression model</p>
+</div>
+<p>Plot the region breaks using <code>regionmodel</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot&lt;-<span class="kw">regionmodel</span>(<span class="dt">name=</span><span class="st">&quot;Alligator example&quot;</span>, <span class="dt">Xvar=</span>Xvar, <span class="dt">regiondata=</span>support<span class="op">$</span>Model_support)
+  <span class="kw">print</span>(plot)</code></pre></div>
+<div class="figure">
+<img src="data:image/png;base64,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BIrBjdUsUIilolQl2vf8oE6sBIqDrSblSpkccBblWD5wbG3ieZK7RWycC2I4bbiWS1/C+gXqLGGG56P7tQMvntzv9EDPR781Hcc3VXBv+aATqwvQjCXMV6DmQRlzOjizokDZsSxQ4V25hCWB3IRtF7HHd9fKmQ2z+svcdMTKNdgqY+mIW0t5vl2stYR5gVwFatKp3Yqz5dubtTKWDxwF2gjiFqtnjBXX4mPpWq5GoGla14p60e6D7WrVEejZcN1Wpm/K4G6zXJShdMTdYrGLm6ZJp4m2LYzprc8V6LO3EWg/rGvFdJvOM7e3oegPtjsCPby1at/NX5SJG80glKFaoA2/2pVnqbrtYOTAnjvP99gYFQRaLWMdgcZxnS36NP99dS0+lq7lSgSa5k/bl0vYwYeVF1aT7i6sqlVBIOtOK1YWtCSQl6Xsd0Jb8/d6Wfu+FWg/+FdXoNh0JFeMJh2BttP7uxDIzlZRL0KirwJdWeqzuNbmD/k0Y+tSqwK5WFugGAyPVWJ5LS6Wr+UqBCo2ZmczvNirduKzEpe7sULHLFC336lamFqgqgeaKVDcoLUFankxrjfiMxIH230CbYXtc7FcpX6ndebsqd9o1T1Q2tWVAsVgfKwSO4PztVyBQNU/x9IUs91xoOc+kE/8stpx9cWKlny2QO7H/bovyu7EXdgsgfZjSXvTmtqWF/XMVomf3Ot4kWNx9Di0KLMFynsmGxyHGz7FLizGaoFiMD2ZE6tryYOvrAIVgSyQ6Zf72piuQH2JL56s92zhdqv9flrCuveBbr75bvjgTRnzYkyq+0DnCpQ76UIg02OWbcz5AvUluts4404PFFqg1hLWbqLtVu3hrTWfmM67ke8D5TpVCFRtwLbrweVLLAZfmUDpX68rBXJ3ottNdJ9Apkx1E/sGO6taArmbxn13oh+8qWJxaWqam+3lqivQvr+eB/USVt8jPl8gd2u3nVgPTsHVtkC9g21sLSTmlcZ024N2rBAoBstlNn1fvJxi8A8l0LzYYQ/8LewHTVzsv4Uh0IXP2EUnIhACIRACIVA9DN4XLkcgAA8CgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgQQCgcT/AbwYgATZ6TB3AAAAAElFTkSuQmCC" alt="Best regionalization model" />
+<p class="caption">Best regionalization model</p>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
