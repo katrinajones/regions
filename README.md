@@ -13,3 +13,5 @@ SCIENCE21 SEP 2018 : 1249-1252
 
 Install using:
 devtools::install_github("katrinajones/regions", build_vignettes=T)
+
+Tutorial available at: https://www.katrinaejones.com/code
