@@ -1,4 +1,4 @@
-#' Calculates region model fit
+#' Calculates region model fit, edited for 7 region capability. SMSmith 10.05.2021
 #'
 #' Uses \code{calcregions} to calculate region models for each variable separately, then
 #' exports the summed residual sums of squares.
@@ -28,22 +28,22 @@ compileregions <- function(Xvar, data, noregions=2) {
         # for one variable only
         first <- calcregions(Xvar, data, noregions)
         first <- first[which(first[, 1] <= noregions), ]  #remove unused rows
-        restab <- first[, 1:7]  #cols inlcuding RSS
-        rsq <- first[, 8]  #RSQ col
+        restab <- first[, 1:8]  #cols inlcuding RSS
+        rsq <- first[, 9]  #RSQ col
 
     } else {
         # make original results table
         first <- calcregions(Xvar, data[, 1], noregions)
         first <- first[which(first[, 1] <= noregions), ]  #remove unused rows
-        restab <- first[, 1:7]  #cols inlcuding RSS
-        rsq <- first[, 8]  #RSQ col
+        restab <- first[, 1:8]  #cols inlcuding RSS
+        rsq <- first[, 9]  #RSQ col
 
         # run for the other PCs
         for (i in 2:ncol(data)) {
             more <- calcregions(Xvar, data[, i], noregions)
             more <- more[which(more[, 1] <= noregions), ]
-            restab <- cbind(restab, more[, 7])
-            rsq <- cbind(rsq, more[, 8])
+            restab <- cbind(restab, more[, 8])
+            rsq <- cbind(rsq, more[, 9])
         }
         colnames(rsq) <- paste("rsq", c(1:ncol(data)), sep = "")
     }
@@ -51,9 +51,9 @@ compileregions <- function(Xvar, data, noregions=2) {
     names <- colnames(first)
     PCOvars <- c(1:ncol(data))
     varnames <- sapply(PCOvars, function(x) paste("var", x))
-    names <- append(names[1:6], varnames)
+    names <- append(names[1:7], varnames)
     colnames(restab) <- names
 
 
-   return(restab)
+    return(restab)
 }
