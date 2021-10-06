@@ -15,3 +15,6 @@ Install using:
 devtools::install_github("katrinajones/regions", build_vignettes=T)
 
 Tutorial available at: https://www.katrinaejones.com/code
+
+
+UPDATE OCT 2021: Code updated to allow analysis of 7 regions by Stephanie Smith (Citation: XX).
