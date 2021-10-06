@@ -19,7 +19,7 @@ modelselect<-function(regiondata, noregions, nopcos, startpco=1){
   pco.begin<-which(colnames(regiondata)=="var.1")
   pco.begin<-(pco.begin-1)+startpco
   if((nopcos-startpco)>0){
-  sumRSS <- rowSums(regiondata[,pco.begin:(pco.begin+(nopcos-1))])
+    sumRSS <- rowSums(regiondata[,pco.begin:(pco.begin+(nopcos-1))])
   }  else{sumRSS<-regiondata[,pco.begin]
   }
   regiondata2<-cbind(regiondata, sumRSS)
@@ -28,11 +28,11 @@ modelselect<-function(regiondata, noregions, nopcos, startpco=1){
   for (i in 1:noregions){
     allmodels<-subset(regiondata2, regiondata2$regions==i)#select only models with correct region no
     best<-allmodels[which(allmodels$sumRSS==min(allmodels$sumRSS)),]#select the lowest RSS
-    best<-best[1,c(1:6,ncol(best))]#select columns
+    best<-best[1,c(1:7,ncol(best))]#select columns
     models<-rbind(models, best)#fill in model table
 
-    }
-return(models)
+  }
+  return(models)
 }
 
 #' Calculate AICc parameter for models
@@ -82,22 +82,22 @@ AICcalc<-function(RSS, nPC, nvert, noregions){
 
 model_support<-function(models, nvert, nPC){
   AICc=numeric()
-for (i in 1:nrow(models)){
-  AICval<-AICcalc(models$sumRSS[i],nPC, nvert, models$regions[i]) #Calculate AIC score
-  AICc<-rbind(AICc,AICval)
-}
-AICmin<-min(AICc)#AIC of best model
-deltaAIC<-sapply(AICc, function(x) x-AICmin)#Calculate AIC difference
-model_lik<-sapply(deltaAIC, function(x) exp(-0.5*x))#Likelihood of the model
-tot_lik<-sum(model_lik)
-Ak_weight<-sapply(model_lik, function(x) x/tot_lik)#Akaike Weights
-AIC_models<-cbind(models, AICc, deltaAIC, model_lik, Ak_weight)
-AIC_models<-AIC_models[order(AIC_models$AICc),]#Sort so best at top
+  for (i in 1:nrow(models)){
+    AICval<-AICcalc(models$sumRSS[i],nPC, nvert, models$regions[i]) #Calculate AIC score
+    AICc<-rbind(AICc,AICval)
+  }
+  AICmin<-min(AICc)#AIC of best model
+  deltaAIC<-sapply(AICc, function(x) x-AICmin)#Calculate AIC difference
+  model_lik<-sapply(deltaAIC, function(x) exp(-0.5*x))#Likelihood of the model
+  tot_lik<-sum(model_lik)
+  Ak_weight<-sapply(model_lik, function(x) x/tot_lik)#Akaike Weights
+  AIC_models<-cbind(models, AICc, deltaAIC, model_lik, Ak_weight)
+  AIC_models<-AIC_models[order(AIC_models$AICc),]#Sort so best at top
 
-weight_region<-AIC_models$regions*AIC_models$Ak_weight
-Regions_score<-sum(weight_region)
+  weight_region<-AIC_models$regions*AIC_models$Ak_weight
+  Regions_score<-sum(weight_region)
 
-return(list(Model_support=AIC_models,Region_score=Regions_score))
+  return(list(Model_support=AIC_models,Region_score=Regions_score))
 }
 
 
@@ -157,7 +157,7 @@ regionrsq<-function(Xvar, data, pcono, modelsupport){
     SStot<-sum(aov$`Sum Sq`)
     dfe<-aov$Df[length(aov$Df)]
     #arsq<-1-((SSres/dfe)/(SStot/df))
-      }
+  }
   if (bestmodel[1] == 2) {
     fitall<-lm(data[,pcono]~Xvar*(Xvar<=bestmodel[2])+Xvar*(bestmodel[2]<Xvar))
     rsq<-summary(fitall)$adj.r.squared
@@ -235,10 +235,10 @@ multvarrsq<-function(Xvar, data, modelsupport){
     totrsq[i,"SStot"]<-rsqi$SStot
     totrsq[i,"dfe"]<-rsqi$dfe
   }
-tot.rsq<-as.data.frame(t(colSums(totrsq)))
-ord.tot.rsq<-1-(tot.rsq$SSres/tot.rsq$SStot)
-adj.tot.rsq<-1-((tot.rsq$SSres/tot.rsq$dfe)/(tot.rsq$SStot/tot.rsq$df))
+  tot.rsq<-as.data.frame(t(colSums(totrsq)))
+  ord.tot.rsq<-1-(tot.rsq$SSres/tot.rsq$SStot)
+  adj.tot.rsq<-1-((tot.rsq$SSres/tot.rsq$dfe)/(tot.rsq$SStot/tot.rsq$df))
 
-return(list(rsq=ord.tot.rsq, adj.rsq=adj.tot.rsq))
+  return(list(rsq=ord.tot.rsq, adj.rsq=adj.tot.rsq))
 
 }
