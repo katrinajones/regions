@@ -189,7 +189,7 @@ calcregions <- function(Xvar, Yvar, noregions) {
               RSSline7 <- sum(line7$residuals^2)
 
               totRSS <- RSSline1 + RSSline2 + RSSline3 + RSSline4 + RSSline5 + RSSline6 + RSSline7
-              rsp <- mean(c(summary(line1)$r.squared, summary(line2)$r.squared, summary(line3)$r.squared,summary(line4)$r.squared, summary(line5)$r.squared, summary(line6)$r.squared, summary(line7)$r.squared))
+              rsq <- mean(c(summary(line1)$r.squared, summary(line2)$r.squared, summary(line3)$r.squared,summary(line4)$r.squared, summary(line5)$r.squared, summary(line6)$r.squared, summary(line7)$r.squared))
               regions[modno, ] <- c(7, Xvar[x], Xvar[y], Xvar[z], Xvar[a], Xvar[b], Xvar[p], totRSS, rsq)
               modno <- modno + 1
             }
